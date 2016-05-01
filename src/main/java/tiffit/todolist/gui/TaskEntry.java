@@ -49,7 +49,7 @@ public class TaskEntry implements IGuiListEntry {
         fro.drawStringWithShadow(item.name() + " Task", x + listWidth/4 + 147 - width, y + 22, 0xbbbbbb);
         GlStateManager.color(1, 1, 1, 1);
 	}
-
+	
 	@Override
 	public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
 		return false;

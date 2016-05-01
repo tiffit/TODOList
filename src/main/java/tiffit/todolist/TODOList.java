@@ -24,25 +24,25 @@ public class TODOList {
 
 	public static List<TODOItem> list;
 	public static TDLVersion tdlVer;
+	private static File configDir;
 	public static RegistryNamespaced<String, Class<? extends TODOItem>> taskRegistry = new RegistryNamespaced<String, Class<? extends TODOItem>>();
 	
 	@EventHandler
     public void preinit(FMLPreInitializationEvent event){
 		ListLoader.register();
-		File configDir = event.getModConfigurationDirectory();
-		list = ListLoader.getListFromStorage(configDir);
+		configDir = event.getModConfigurationDirectory();
 		Runtime.getRuntime().addShutdownHook(new ShutdownEvent(configDir));
     }
 	
 	@EventHandler
     public void init(FMLInitializationEvent event){
 		KeyBind.init();
-		//AchievmentHandler.init();
     }
 	
 	@EventHandler
     public void postinit(FMLPostInitializationEvent event){
 		tdlVer = VersionParser.getLatestVersion();
+		list = ListLoader.getListFromStorage(configDir);
     }
 	
 }

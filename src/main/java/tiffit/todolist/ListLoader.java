@@ -7,6 +7,9 @@ import java.util.List;
 
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.Loader;
+import tiffit.todolist.items.TODOBMAltar;
 import tiffit.todolist.items.TODOBuild;
 import tiffit.todolist.items.TODOCraft;
 import tiffit.todolist.items.TODOExplore;
@@ -26,6 +29,9 @@ public class ListLoader {
 		TODOList.taskRegistry.putObject(TODOMine.NAME, TODOMine.class);
 		TODOList.taskRegistry.putObject(TODOExplore.NAME, TODOExplore.class);
 		TODOList.taskRegistry.putObject(TODOOther.NAME, TODOOther.class);
+		if(Loader.isModLoaded("BloodMagic")) {
+			TODOList.taskRegistry.putObject(TODOBMAltar.NAME, TODOBMAltar.class);
+		}
 	}
 	
 	public static void post_register(){
