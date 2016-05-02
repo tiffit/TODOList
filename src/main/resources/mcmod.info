@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "TODOList",
+  "name": "TODO List",
+  "description": "This mod allows you to create a TODO list that can store all of the tasks that you wish to do. ",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "http://minecraft.curseforge.com/projects/todolist",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["tiffit"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
