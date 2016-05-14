@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import tiffit.todolist.gui.TODOListGui;
 import tiffit.todolist.hudmessage.HudMessage;
 import tiffit.todolist.items.TODOTask;
+import tiffit.todolist.items.TODOTask.TaskPriority;
 import tiffit.todolist.versionchecker.TDLVersion;
 import tiffit.todolist.versionchecker.VersionParser;
 
@@ -56,6 +57,28 @@ public class TODOList {
 		list = ListLoader.getListFromStorage(configDir);
     }
 	
+	public static void reorganize(){
+		List<TODOTask> lowest = new ArrayList<TODOTask>();
+		List<TODOTask> low = new ArrayList<TODOTask>();
+		List<TODOTask> medium = new ArrayList<TODOTask>();
+		List<TODOTask> high = new ArrayList<TODOTask>();
+		List<TODOTask> highest = new ArrayList<TODOTask>();
+		
+		for(TODOTask task : list){
+			if(task.getPriority() == TaskPriority.Lowest) lowest.add(task);
+			if(task.getPriority() == TaskPriority.Low) low.add(task);
+			if(task.getPriority() == TaskPriority.Medium) medium.add(task);
+			if(task.getPriority() == TaskPriority.High) high.add(task);
+			if(task.getPriority() == TaskPriority.Highest) highest.add(task);
+		}
+		list.clear();
+		list.addAll(highest);
+		list.addAll(high);
+		list.addAll(medium);
+		list.addAll(low);
+		list.addAll(lowest);
+	}
+	
 	@SubscribeEvent
 	public void tickEvent(TickEvent.RenderTickEvent e){
 		if(e.phase == TickEvent.Phase.END) return;
@@ -79,5 +102,6 @@ public class TODOList {
 			enableButtonMessage = false;
 		}
 	}
+	
 	
 }

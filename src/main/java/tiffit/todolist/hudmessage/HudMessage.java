@@ -3,6 +3,7 @@ package tiffit.todolist.hudmessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -73,6 +74,7 @@ public class HudMessage {
 		timing = 300;
 		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
 		stage = Stage.Open;
+		Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.entity_experience_orb_pickup, 4F, 1F);
 	}
 	
 	private enum Stage{

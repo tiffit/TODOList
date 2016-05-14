@@ -12,8 +12,9 @@ import tiffit.todolist.items.TODOTask;
 
 public class TaskEntry implements IGuiListEntry {
 
-	ResourceLocation background = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");
-	ResourceLocation image = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
+	private static final ResourceLocation background = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");
+	private static final ResourceLocation image = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
+	private static final ResourceLocation clock = new ResourceLocation("textures/items/clock_00.png");
 	TODOTask item;
 	boolean selected;
 	boolean highlighted;
@@ -40,15 +41,26 @@ public class TaskEntry implements IGuiListEntry {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(background);
 		Gui.drawModalRectWithCustomSizedTexture(x + listWidth/4, y, 0, 193, 151, 32, 256.0F, 256.0F);
 		GlStateManager.color(1, 1, 1, 1);
+		
 		Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
+        
+        if(item.getClock() != null){
+        	Minecraft.getMinecraft().getTextureManager().bindTexture(clock);
+        	Gui.drawModalRectWithCustomSizedTexture(x + 32, y + 32 - 16, 0, 0, 16, 16, 16.0F, 16.0F);
+        }
+        
         String text = item.taskName() + " Task";
         String time = item.getClock() != null ? item.getClock().toString() : "";
         FontRenderer fro = Minecraft.getMinecraft().fontRendererObj;
         fro.drawSplitString(item.getName(), x + listWidth/4 + 2, y + 2, 150, 0xffffff);
+        
         int width = fro.getStringWidth(text);
         fro.drawString(time, x + listWidth/4 + 2, y + 22, 0xdddddd);
         fro.drawStringWithShadow(item.taskName() + " Task", x + listWidth/4 + 147 - width, y + 22, 0xbbbbbb);
+        
+        Gui.drawRect(x + listWidth - 14, y, x + listWidth - 12, y + slotHeight + 4, item.getPriority().getColor());
+        
         GlStateManager.color(1, 1, 1, 1);
 	}
 	

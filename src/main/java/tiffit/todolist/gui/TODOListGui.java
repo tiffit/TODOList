@@ -3,7 +3,6 @@ package tiffit.todolist.gui;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
-import java.util.function.ToDoubleBiFunction;
 
 import org.lwjgl.input.Keyboard;
 
@@ -15,7 +14,7 @@ import tiffit.todolist.References;
 import tiffit.todolist.TODOList;
 import tiffit.todolist.TaskClock;
 import tiffit.todolist.items.TODOTask;
-import tiffit.todolist.versionchecker.VersionParser;
+import tiffit.todolist.items.TODOTask.TaskPriority;
 
 public class TODOListGui extends GuiScreen{
 
@@ -108,7 +107,7 @@ public class TODOListGui extends GuiScreen{
 			}
 			if(button.id == 3){
 				TODOTask task = selected.item;
-				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, task.getName(), task.getClock() != null ? task.getClock().toString() : "", this));
+				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, task.getName(), task.getClock() != null ? task.getClock().toString() : "", task.getPriority().ordinal(), this));
 			}
 		}
 		if(button.id == 4){
@@ -147,6 +146,11 @@ public class TODOListGui extends GuiScreen{
 	
 	public void setTime(int index, String time){
 		TODOList.list.get(index).setClock(TaskClock.fromString(time));
+		taskSelectionList.init();
+	}
+	
+	public void setPriority(int index, TaskPriority priority){
+		TODOList.list.get(index).setPriority(priority);
 		taskSelectionList.init();
 	}
 	

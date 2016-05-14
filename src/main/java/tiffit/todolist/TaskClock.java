@@ -11,6 +11,7 @@ public class TaskClock {
 	private int hours;
 	private int minutes;
 	private int seconds;
+	private int stage;
 	private long lastCheckTime;
 	private boolean time_left = true;
 	
@@ -24,6 +25,8 @@ public class TaskClock {
 	public void tick(){
 		if(Minecraft.getSystemTime() - lastCheckTime >= 1000){
 			seconds--;
+			stage++;
+			if(stage >= 4) stage = 0;
 			calculateReadable();
 			lastCheckTime = Minecraft.getSystemTime();
 			if(hours == 0 && minutes == 1 && seconds == 0){
@@ -32,12 +35,16 @@ public class TaskClock {
 			if(hours == 0 && minutes == 5 && seconds == 0){
 				TODOList.message.setMessage("Deadline", "5 minutes left!");
 			}
-			if(seconds <= 0){
+			if(seconds <= 0 && minutes <= 0 && hours <= 0){
 				time_left = false;
 				TODOList.message.setMessage("Deadline", "Task has reached deadline!");
 			}
 		}
 		
+	}
+	
+	public int getStage(){
+		return stage;
 	}
 	
 	public boolean enabled(){

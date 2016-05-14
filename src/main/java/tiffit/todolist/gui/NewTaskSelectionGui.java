@@ -17,6 +17,7 @@ import net.minecraft.client.resources.I18n;
 import tiffit.todolist.TODOList;
 import tiffit.todolist.items.TODOCraft;
 import tiffit.todolist.items.TODOTask;
+import tiffit.todolist.items.TODOTask.TaskPriority;
 
 public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
 
@@ -53,7 +54,7 @@ public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
 		if(button.id == 0 && taskSelectionList.getSelected() != null){
 			TODOTask item = taskSelectionList.getSelected().item;
 			behind.add(item);
-			Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(behind.getTSL().getSize() - 1, item.getName(), "", behind));
+			Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(behind.getTSL().getSize() - 1, item.getName(), "", TaskPriority.Medium.ordinal(), behind));
 		}
 		if(button.id == 1){
 			Minecraft.getMinecraft().displayGuiScreen(new AddTaskTypeGui(this));

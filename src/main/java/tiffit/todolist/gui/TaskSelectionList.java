@@ -36,6 +36,7 @@ public class TaskSelectionList extends GuiListExtended {
 	
 	protected void remove(int index){
 		TODOList.list.remove(index);
+		TODOList.reorganize();
 		init();
 	}
 	
