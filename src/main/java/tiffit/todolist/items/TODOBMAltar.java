@@ -3,7 +3,7 @@ package tiffit.todolist.items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
-public class TODOBMAltar extends TODOItem {
+public class TODOBMAltar extends TODOTask {
 
 	public static String NAME = "Build/Upgrade Altar";
 	
@@ -16,7 +16,7 @@ public class TODOBMAltar extends TODOItem {
 	}
 
 	@Override
-	public String name() {
+	public String taskName() {
 		return NAME;
 	}
 

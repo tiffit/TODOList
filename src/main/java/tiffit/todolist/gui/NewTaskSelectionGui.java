@@ -16,7 +16,7 @@ import net.minecraft.client.network.LanServerDetector;
 import net.minecraft.client.resources.I18n;
 import tiffit.todolist.TODOList;
 import tiffit.todolist.items.TODOCraft;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.items.TODOTask;
 
 public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
 
@@ -35,8 +35,9 @@ public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
 		 Keyboard.enableRepeatEvents(true);
 		 this.taskSelectionList = new NewTaskSelectionList(this.mc, this.width, this.height, 32, this.height - 64, 32);
 	     this.buttonList.clear();
-	     this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 52, 200, 20, "Add"));
-	     this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 28, 200, 20, "Cancel"));
+	     this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 52, 100, 20, "Add"));
+	     this.buttonList.add(new GuiButton(1, this.width / 2, this.height - 52, 100, 20, "Custom Task"));
+	     this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height - 28, 200, 20, "Cancel"));
 	 }
 	 
 	 public void drawScreen(int mouseX, int mouseY, float partialTicks){
@@ -50,11 +51,14 @@ public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		super.actionPerformed(button);
 		if(button.id == 0 && taskSelectionList.getSelected() != null){
-			TODOItem item = taskSelectionList.getSelected().item;
+			TODOTask item = taskSelectionList.getSelected().item;
 			behind.add(item);
-			Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(behind.getTSL().getSize() - 1, item.getName(), behind));
+			Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(behind.getTSL().getSize() - 1, item.getName(), "", behind));
 		}
 		if(button.id == 1){
+			Minecraft.getMinecraft().displayGuiScreen(new AddTaskTypeGui(this));
+		}
+		if(button.id == 2){
 			Minecraft.getMinecraft().displayGuiScreen(behind);
 		}
 		

@@ -3,6 +3,7 @@ package tiffit.todolist.gui;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
+import java.util.function.ToDoubleBiFunction;
 
 import org.lwjgl.input.Keyboard;
 
@@ -12,7 +13,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.TaskClock;
+import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.versionchecker.VersionParser;
 
 public class TODOListGui extends GuiScreen{
@@ -105,7 +107,8 @@ public class TODOListGui extends GuiScreen{
 				taskSelectionList.init();
 			}
 			if(button.id == 3){
-				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, selected.item.getName(), this));
+				TODOTask task = selected.item;
+				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, task.getName(), task.getClock() != null ? task.getClock().toString() : "", this));
 			}
 		}
 		if(button.id == 4){
@@ -132,13 +135,18 @@ public class TODOListGui extends GuiScreen{
 		taskSelectionList.mouseReleased(mouseX, mouseY, state);
 	}
 	
-	public void add(TODOItem item){
+	public void add(TODOTask item){
 		TODOList.list.add(item);
 		taskSelectionList.init();
 	}
 	
 	public void setText(int index, String text){
 		TODOList.list.get(index).setName(text);
+		taskSelectionList.init();
+	}
+	
+	public void setTime(int index, String time){
+		TODOList.list.get(index).setClock(TaskClock.fromString(time));
 		taskSelectionList.init();
 	}
 	

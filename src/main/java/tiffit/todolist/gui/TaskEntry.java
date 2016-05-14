@@ -8,13 +8,13 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.items.TODOTask;
 
 public class TaskEntry implements IGuiListEntry {
 
 	ResourceLocation background = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");
 	ResourceLocation image = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
-	TODOItem item;
+	TODOTask item;
 	boolean selected;
 	boolean highlighted;
 	int index;
@@ -42,11 +42,13 @@ public class TaskEntry implements IGuiListEntry {
 		GlStateManager.color(1, 1, 1, 1);
 		Minecraft.getMinecraft().getTextureManager().bindTexture(image);
         Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
-        String text = item.name() + " Task";
+        String text = item.taskName() + " Task";
+        String time = item.getClock() != null ? item.getClock().toString() : "";
         FontRenderer fro = Minecraft.getMinecraft().fontRendererObj;
         fro.drawSplitString(item.getName(), x + listWidth/4 + 2, y + 2, 150, 0xffffff);
         int width = fro.getStringWidth(text);
-        fro.drawStringWithShadow(item.name() + " Task", x + listWidth/4 + 147 - width, y + 22, 0xbbbbbb);
+        fro.drawString(time, x + listWidth/4 + 2, y + 22, 0xdddddd);
+        fro.drawStringWithShadow(item.taskName() + " Task", x + listWidth/4 + 147 - width, y + 22, 0xbbbbbb);
         GlStateManager.color(1, 1, 1, 1);
 	}
 	

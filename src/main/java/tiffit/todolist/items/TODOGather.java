@@ -3,7 +3,7 @@ package tiffit.todolist.items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
-public class TODOGather extends TODOItem {
+public class TODOGather extends TODOTask {
 
 	public static String NAME = "Gather";
 	
@@ -16,7 +16,7 @@ public class TODOGather extends TODOItem {
 	}
 
 	@Override
-	public String name() {
+	public String taskName() {
 		return NAME;
 	}
 

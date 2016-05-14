@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.items.TODOTask;
 
 public class NewTaskSelectionList extends GuiListExtended {
 	
@@ -14,9 +14,17 @@ public class NewTaskSelectionList extends GuiListExtended {
 	
 	public NewTaskSelectionList(Minecraft mcIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn) {
 		super(mcIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
+		update();
+	}
+	
+	private void update(){
+		tasks.clear();
 		for(String str : TODOList.taskRegistry.getKeys()){
-			Class<? extends TODOItem> clazz = TODOList.taskRegistry.getObject(str);
+			Class<? extends TODOTask> clazz = TODOList.taskRegistry.getObject(str);
 			tasks.add(new NewTaskEntry(clazz, this));
+		}
+		for(String str : TODOList.customTaskRegistry){
+			tasks.add(new CustomNewTaskEntry(str, this));
 		}
 	}
 
@@ -38,6 +46,11 @@ public class NewTaskSelectionList extends GuiListExtended {
 			}
 		}
 		return null;
+	}
+	
+	public void remove(String name){
+		TODOList.customTaskRegistry.remove(name);
+		update();
 	}
 
 }
