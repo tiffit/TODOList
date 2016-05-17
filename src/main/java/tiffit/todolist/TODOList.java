@@ -8,6 +8,7 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.registry.RegistryNamespaced;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -18,7 +19,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import tiffit.todolist.gui.TODOListGui;
-import tiffit.todolist.hudmessage.HudMessage;
+import tiffit.todolist.hud.HudEvent;
+import tiffit.todolist.hud.HudMessage;
 import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOTask.TaskPriority;
 import tiffit.todolist.versionchecker.TDLVersion;
@@ -29,6 +31,7 @@ import tiffit.todolist.versionchecker.VersionParser;
 public class TODOList {
 
 	public static List<TODOTask> list;
+	public static TODOTask hudtask;
 	public static TDLVersion tdlVer;
 	private static File configDir;
 	public static RegistryNamespaced<String, Class<? extends TODOTask>> taskRegistry = new RegistryNamespaced<String, Class<? extends TODOTask>>();
@@ -43,7 +46,7 @@ public class TODOList {
 		ListLoader.register(configDir);
 		Runtime.getRuntime().addShutdownHook(new ShutdownEvent(configDir));
 		MinecraftForge.EVENT_BUS.register(this);
-		MinecraftForge.EVENT_BUS.register(message);
+		MinecraftForge.EVENT_BUS.register(new HudEvent());
     }
 	
 	@EventHandler
@@ -96,7 +99,7 @@ public class TODOList {
 	}
 	
 	@SubscribeEvent
-	public void joinWorld(PlayerLoggedInEvent e){
+	public void hudRender(RenderGameOverlayEvent.Pre e){
 		if(enableButtonMessage){
 			message.setMessage("TODOList", "Press "+Keyboard.getKeyName(KeyBind.openTodoList.getKeyCode())+" to open");
 			enableButtonMessage = false;

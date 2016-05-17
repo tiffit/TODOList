@@ -13,16 +13,6 @@
 "credits": "",
 "logoFile": "",
 "screenshots": [],
-"dependencies": [],
-  "modid": "TODOList",
-  "name": "TODO List",
-  "description": "This mod allows you to create a TODO list that can store all of the tasks that you wish to do. ",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "http://minecraft.curseforge.com/projects/todolist",
-  "updateUrl": "",
-  "authorList": ["tiffit"],
-  "credits": "",
-  "logoFile": ""
+"dependencies": []
 }
 ]

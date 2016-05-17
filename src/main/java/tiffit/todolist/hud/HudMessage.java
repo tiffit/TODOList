@@ -1,4 +1,4 @@
-package tiffit.todolist.hudmessage;
+package tiffit.todolist.hud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -26,8 +26,7 @@ public class HudMessage {
 		stage = Stage.None;
 	}
 	
-	@SubscribeEvent
-	public void drawHUD(RenderGameOverlayEvent.Post e){
+	public void drawHUD(){
 		if(stage == Stage.None) return;
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.enableBlend();
@@ -74,7 +73,13 @@ public class HudMessage {
 		timing = 300;
 		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
 		stage = Stage.Open;
-		Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.entity_experience_orb_pickup, 4F, 1F);
+		try{
+			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.entity_experience_orb_pickup, 4F, 1F);
+		}catch(NullPointerException e){
+			System.err.println("Error while sending message! message = " + message);
+		}catch(Exception e){
+			System.err.println("Unknown (sound) error while sending message! message = " + message);
+		}
 	}
 	
 	private enum Stage{

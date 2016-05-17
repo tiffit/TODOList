@@ -10,9 +10,6 @@ import tiffit.todolist.TODOList;
 import tiffit.todolist.items.TODOTask;
 
 public class NewTaskEntry implements IGuiListEntry {
-
-	protected ResourceLocation background = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");
-	protected ResourceLocation image = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
 	protected boolean selected;
 	protected boolean highlighted;
 	protected TODOTask item;
@@ -41,10 +38,10 @@ public class NewTaskEntry implements IGuiListEntry {
 		if(selected){
 	        GlStateManager.color(1f, 1f, .6f, 1f);
 		}
-		Minecraft.getMinecraft().getTextureManager().bindTexture(background);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(References.TODOLIST);
 		Gui.drawModalRectWithCustomSizedTexture(x + listWidth/4, y, 0, 193, 151, 32, 256.0F, 256.0F);
 		GlStateManager.color(1, 1, 1, 1);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(References.ICONS);
         Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
         
 		Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(item.getName() + " Task", x + listWidth/4 + 2, y + 2, 0xffffff);

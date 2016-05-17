@@ -7,8 +7,7 @@ import tiffit.todolist.References;
 import tiffit.todolist.items.TODOCustom;
 
 public class CustomNewTaskEntry extends NewTaskEntry {
-
-	private ResourceLocation delete = new ResourceLocation("textures/gui/spectator_widgets.png");
+	
 	private String name;
 	
 	public CustomNewTaskEntry(String name, NewTaskSelectionList list) {
@@ -21,7 +20,7 @@ public class CustomNewTaskEntry extends NewTaskEntry {
 	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
 		super.drawEntry(slotIndex, x, y, listWidth, slotHeight, mouseX, mouseY, isSelected);
 		if(highlighted){
-        	Minecraft.getMinecraft().getTextureManager().bindTexture(delete);
+        	Minecraft.getMinecraft().getTextureManager().bindTexture(References.MC_WIDGETS);
         	Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 34, y + slotHeight - 16, 128, 0, 16, 16, 256.0F, 256.0F);
         }
 	}

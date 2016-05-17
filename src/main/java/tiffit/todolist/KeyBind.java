@@ -16,9 +16,11 @@ public class KeyBind {
 
 	public static KeyBinding openTodoList;
 	
+	private static String category = "key.categories." + References.MODID;
+	
 	public static void init(){
 		MinecraftForge.EVENT_BUS.register(new KeyBind());
-		openTodoList = new KeyBinding("openTodoList", Keyboard.KEY_COMMA, "key.categories." + References.MODID);
+		openTodoList = new KeyBinding("openTodoList", Keyboard.KEY_COMMA, category);
 		ClientRegistry.registerKeyBinding(openTodoList);
 	}
 	

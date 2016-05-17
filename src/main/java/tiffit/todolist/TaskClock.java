@@ -93,6 +93,13 @@ public class TaskClock {
 		return hours + ":" + minutes + ":" + seconds;
 	}
 	
+	public int getTextColor(){
+		if(hours == 0 && minutes == 0 && minutes <= 59){
+			return 0xbb0000;
+		}
+		return 0xdddddd;
+	}
+	
 	public static TaskClock fromString(String str){
 		if(str.equals("")) return null;
 		String[] times = str.split(":");
