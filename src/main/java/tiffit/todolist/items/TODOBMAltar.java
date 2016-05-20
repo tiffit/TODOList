@@ -3,11 +3,11 @@ package tiffit.todolist.items;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.TextComponentString;
 
-public class TODOExplore extends TODOTask {
+public class TODOBMAltar extends TODOTask {
 
-	public static String NAME = "Explore";
+	public static String NAME = "Build/Upgrade Altar";
 	
-	public TODOExplore(){
+	public TODOBMAltar(){
 		
 	}
 	
@@ -22,12 +22,12 @@ public class TODOExplore extends TODOTask {
 
 	@Override
 	public int getX() {
-		return 6;
+		return 0;
 	}
 
 	@Override
 	public int getY() {
-		return 0;
+		return 1;
 	}
 
 }

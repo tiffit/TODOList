@@ -12,8 +12,9 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
-import tiffit.todolist.versionchecker.VersionParser;
+import tiffit.todolist.TaskClock;
+import tiffit.todolist.items.TODOTask;
+import tiffit.todolist.items.TODOTask.TaskPriority;
 
 public class TODOListGui extends GuiScreen{
 
@@ -33,13 +34,10 @@ public class TODOListGui extends GuiScreen{
 		 this.taskSelectionList = new TaskSelectionList(this.mc, this.width, this.height, 32, this.height - 64, 32);
 	     this.buttonList.clear();
 	     this.buttonList.add(new GuiButton(0, this.width / 2, this.height - 52, 100, 20, "Add Task"));
-	     this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 52, 50, 20, "Finish"));
-	     this.buttonList.add(new GuiButton(2, this.width / 2 - 50, this.height - 52, 50, 20, "Remove"));
-	     this.buttonList.add(new GuiButton(3, this.width / 2 - 100, this.height - 28, 100, 20, "Edit"));
-	     this.buttonList.add(new GuiButton(4, this.width / 2, this.height - 28, 100, 20, "Cancel"));
-	     buttonList.get(1).enabled = false;
+	     this.buttonList.add(new GuiButton(1, this.width / 2 - 100, this.height - 52, 100, 20, "Display on HUD"));
+	     this.buttonList.add(new GuiButton(2, this.width / 2 - 100, this.height - 28, 100, 20, "Edit"));
+	     this.buttonList.add(new GuiButton(3, this.width / 2, this.height - 28, 100, 20, "Cancel"));
 	     buttonList.get(2).enabled = false;
-	     buttonList.get(3).enabled = false;
 	 }
 	 
 	 public void drawScreen(int mouseX, int mouseY, float partialTicks){
@@ -81,15 +79,8 @@ public class TODOListGui extends GuiScreen{
 	 }
 	 
 	 private void validateButtons(){
-		if(taskSelectionList.getSelected() != null){
-			buttonList.get(1).enabled = true;
-		    buttonList.get(2).enabled = true;
-		    buttonList.get(3).enabled = true;
-		}else{
-			buttonList.get(1).enabled = false;
-		    buttonList.get(2).enabled = false;
-		    buttonList.get(3).enabled = false;
-		}
+		if(taskSelectionList.getSelected() != null) buttonList.get(2).enabled = true;
+		else buttonList.get(2).enabled = false;
 	 }
 	 
 	 @Override
@@ -98,17 +89,19 @@ public class TODOListGui extends GuiScreen{
 		if(button.id == 0){
 			Minecraft.getMinecraft().displayGuiScreen(new NewTaskSelectionGui(this));
 		}
+		if(button.id == 1){
+			TaskEntry entry = taskSelectionList.getSelected();
+			if(entry == null) TODOList.hudtask = null;
+			else TODOList.hudtask = entry.item;
+		}
 		if(taskSelectionList.getSelected() != null){
 			TaskEntry selected = taskSelectionList.getSelected();
-			if(button.id == 1 || button.id == 2){
-				TODOList.list.remove(selected.index);
-				taskSelectionList.init();
-			}
-			if(button.id == 3){
-				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, selected.item.getName(), this));
+			if(button.id == 2){
+				TODOTask task = selected.item;
+				Minecraft.getMinecraft().displayGuiScreen(new EditTaskGui(selected.index, task.getName(), task.getClock() != null ? task.getClock().toString() : "", task.getPriority().ordinal(), this));
 			}
 		}
-		if(button.id == 4){
+		if(button.id == 3){
 			Minecraft.getMinecraft().displayGuiScreen(null);
 		}
 		
@@ -132,13 +125,23 @@ public class TODOListGui extends GuiScreen{
 		taskSelectionList.mouseReleased(mouseX, mouseY, state);
 	}
 	
-	public void add(TODOItem item){
+	public void add(TODOTask item){
 		TODOList.list.add(item);
 		taskSelectionList.init();
 	}
 	
 	public void setText(int index, String text){
 		TODOList.list.get(index).setName(text);
+		taskSelectionList.init();
+	}
+	
+	public void setTime(int index, String time){
+		TODOList.list.get(index).setClock(TaskClock.fromString(time));
+		taskSelectionList.init();
+	}
+	
+	public void setPriority(int index, TaskPriority priority){
+		TODOList.list.get(index).setPriority(priority);
 		taskSelectionList.init();
 	}
 	

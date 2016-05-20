@@ -6,7 +6,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.items.TODOTask;
 
 public class TaskSelectionList extends GuiListExtended {
 	
@@ -35,7 +35,12 @@ public class TaskSelectionList extends GuiListExtended {
 	}
 	
 	protected void remove(int index){
+		if(TODOList.list.indexOf(TODOList.hudtask) == index){
+			if(index == 0) TODOList.hudtask = null;
+			else TODOList.hudtask = TODOList.list.get(index-1);
+		}
 		TODOList.list.remove(index);
+		TODOList.reorganize();
 		init();
 	}
 	

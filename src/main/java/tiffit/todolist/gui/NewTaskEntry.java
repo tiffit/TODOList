@@ -7,19 +7,16 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOItem;
+import tiffit.todolist.items.TODOTask;
 
 public class NewTaskEntry implements IGuiListEntry {
-
-	ResourceLocation background = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");
-	ResourceLocation image = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
-	boolean selected;
-	boolean highlighted;
-	TODOItem item;
-	Class<? extends TODOItem> clazz;
-	NewTaskSelectionList list;
+	protected boolean selected;
+	protected boolean highlighted;
+	protected TODOTask item;
+	protected Class<? extends TODOTask> clazz;
+	protected NewTaskSelectionList list;
 	
-	public NewTaskEntry(Class<? extends TODOItem> clazz, NewTaskSelectionList list){
+	public NewTaskEntry(Class<? extends TODOTask> clazz, NewTaskSelectionList list){
 		this.clazz = clazz;
 		try {
 			item = clazz.newInstance();
@@ -32,8 +29,7 @@ public class NewTaskEntry implements IGuiListEntry {
 	}
 	
 	@Override
-	public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
-		
+	public void setSelected(int par1, int par2, int par3) {
 	}
 
 	@Override
@@ -42,11 +38,12 @@ public class NewTaskEntry implements IGuiListEntry {
 		if(selected){
 	        GlStateManager.color(1f, 1f, .6f, 1f);
 		}
-		Minecraft.getMinecraft().getTextureManager().bindTexture(background);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(References.TODOLIST);
 		Gui.drawModalRectWithCustomSizedTexture(x + listWidth/4, y, 0, 193, 151, 32, 256.0F, 256.0F);
 		GlStateManager.color(1, 1, 1, 1);
-		Minecraft.getMinecraft().getTextureManager().bindTexture(image);
+		Minecraft.getMinecraft().getTextureManager().bindTexture(References.ICONS);
         Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
+        
 		Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(item.getName() + " Task", x + listWidth/4 + 2, y + 2, 0xffffff);
 	}
 
