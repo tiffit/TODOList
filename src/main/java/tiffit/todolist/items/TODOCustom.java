@@ -1,8 +1,6 @@
 package tiffit.todolist.items;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextComponentString;
 
 public class TODOCustom extends TODOTask {
 

@@ -1,11 +1,8 @@
 package tiffit.todolist.items;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextComponentString;
-
 public class TODOExplore extends TODOTask {
 
-	public static String NAME = "Explore";
+	public static final String NAME = "Explore";
 	
 	public TODOExplore(){
 		

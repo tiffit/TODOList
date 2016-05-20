@@ -5,8 +5,6 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import tiffit.todolist.References;
 
 public class HudMessage {
@@ -74,7 +72,7 @@ public class HudMessage {
 		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
 		stage = Stage.Open;
 		try{
-			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.entity_experience_orb_pickup, 4F, 1F);
+			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 4F, 1F);
 		}catch(NullPointerException e){
 			System.err.println("Error while sending message! message = " + message);
 		}catch(Exception e){

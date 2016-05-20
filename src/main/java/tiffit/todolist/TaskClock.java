@@ -1,10 +1,7 @@
 package tiffit.todolist;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
-import scala.tools.nsc.backend.icode.Primitives.Primitive;
 
 public class TaskClock {
 
