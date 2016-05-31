@@ -6,20 +6,11 @@ import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiListExtended;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.GuiYesNoCallback;
-import net.minecraft.client.gui.ServerSelectionList;
-import net.minecraft.client.multiplayer.ServerList;
-import net.minecraft.client.network.LanServerDetector;
-import net.minecraft.client.resources.I18n;
-import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOCraft;
 import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOTask.TaskPriority;
 
-public class NewTaskSelectionGui extends GuiScreen implements GuiYesNoCallback {
+public class NewTaskSelectionGui extends GuiScreen {
 
 	private NewTaskSelectionList taskSelectionList;
 	TODOListGui behind;

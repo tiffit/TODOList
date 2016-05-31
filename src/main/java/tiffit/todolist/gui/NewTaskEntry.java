@@ -4,9 +4,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
-import tiffit.todolist.TODOList;
 import tiffit.todolist.items.TODOTask;
 
 public class NewTaskEntry implements IGuiListEntry {
@@ -29,7 +27,7 @@ public class NewTaskEntry implements IGuiListEntry {
 	}
 	
 	@Override
-	public void setSelected(int par1, int par2, int par3) {
+	public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
 	}
 
 	@Override

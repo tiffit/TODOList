@@ -2,7 +2,6 @@ package tiffit.todolist.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.items.TODOCustom;
 

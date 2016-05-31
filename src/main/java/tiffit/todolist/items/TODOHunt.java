@@ -1,11 +1,8 @@
 package tiffit.todolist.items;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextComponentString;
-
 public class TODOHunt extends TODOTask {
 
-	public static String NAME = "Hunt";
+	public static final String NAME = "Hunt";
 	
 	public TODOHunt(){
 		

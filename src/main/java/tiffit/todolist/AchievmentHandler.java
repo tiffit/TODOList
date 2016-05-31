@@ -9,7 +9,7 @@ public class AchievmentHandler {
 	public static Achievement first_start;
 	
 	public static void init(){
-		first_start = new Achievement("achievement.TODOList.first_start", "first_start", 0, 0, Blocks.command_block, (Achievement)null).initIndependentStat();
+		first_start = new Achievement("achievement.TODOList.first_start", "first_start", 0, 0, Blocks.COMMAND_BLOCK, (Achievement)null).initIndependentStat();
 		AchievementPage.registerAchievementPage(new AchievementPage("TODOList", first_start));
 	}
 	

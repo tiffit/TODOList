@@ -1,11 +1,8 @@
 package tiffit.todolist.items;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.TextComponentString;
-
 public class TODOBMAltar extends TODOTask {
 
-	public static String NAME = "Build/Upgrade Altar";
+	public static final String NAME = "Build/Upgrade Altar";
 	
 	public TODOBMAltar(){
 		

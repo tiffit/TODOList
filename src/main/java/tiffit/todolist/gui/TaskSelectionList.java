@@ -6,7 +6,6 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 import tiffit.todolist.TODOList;
-import tiffit.todolist.items.TODOTask;
 
 public class TaskSelectionList extends GuiListExtended {
 	

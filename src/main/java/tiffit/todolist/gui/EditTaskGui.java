@@ -57,11 +57,11 @@ public class EditTaskGui extends GuiScreen {
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 40, 200, 20, "Done"));
 		prioritySlider = new GuiSlider(new GuiResponder(){
 			@Override
-			public void func_175321_a(int value, boolean p_175321_2_) {}
+			public void setEntryValue(int id, boolean value) {}
 			@Override
-			public void onTick(int id, float value) {}
+			public void setEntryValue(int id, float value) {}
 			@Override
-			public void func_175319_a(int p_175319_1_, String p_175319_2_) {}
+			public void setEntryValue(int id, String value) {}
 		}, 1, this.width / 2 - 100 + 25, (this.height / 3) * 2, "Value", 0, 4, priority, new FormatHelper() {
 			@Override
 			public String getText(int id, String name, float value) {
