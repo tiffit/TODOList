@@ -13,6 +13,7 @@ public class HudMessage {
 	
 	private String message;
 	private String title;
+	private boolean persist;
 	private int timing;
 	private int x;
 	private int original_x;
@@ -33,17 +34,21 @@ public class HudMessage {
 			Gui.drawScaledCustomSizeModalRect(i, 48, 0, 0, 1, 22, 1, 22, 256.0F, 256.0F);
 		}
 		Gui.drawScaledCustomSizeModalRect(mc.fontRendererObj.getStringWidth(message) + x + 1, 48, 1, 0, 2, 22, 2, 22, 256.0F, 256.0F);
-		mc.fontRendererObj.drawStringWithShadow(title, x, 50, 0xffffff);
-		mc.fontRendererObj.drawStringWithShadow(message, x, 60, 0xbfbfbf);
-		if(update_delay <= 0){
-			update();
-			update_delay = update_delay_max;
-		}else{
-			update_delay--;
-		}
+			mc.fontRendererObj.drawStringWithShadow(title, x, 50, 0xffffff);
+			mc.fontRendererObj.drawStringWithShadow(message, x, 60, 0xbfbfbf);
+			if(update_delay <= 0){
+				update();
+				update_delay = update_delay_max;
+			}else{
+				update_delay--;
+			}
 	}
 	
 	private void update(){
+		if(persist){
+			x = 0; //Just a check
+			return;
+		}
 		if(stage == Stage.Open){
 			x++;
 			if(x >= 0){
@@ -65,12 +70,14 @@ public class HudMessage {
 		}
 	}
 		
-	public void setMessage(String title, String message){
+	public void setMessage(String title, String message, boolean waitUntilOpen){
 		this.title = title;
 		this.message = message;
 		timing = 300;
-		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
+		persist = waitUntilOpen;
 		stage = Stage.Open;
+		if(persist) stage = Stage.Stay;
+		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
 		try{
 			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 4F, 1F);
 		}catch(NullPointerException e){
@@ -78,6 +85,10 @@ public class HudMessage {
 		}catch(Exception e){
 			System.err.println("Unknown (sound) error while sending message! message = " + message);
 		}
+	}
+	
+	public void clearMessage(){
+		stage = Stage.None;
 	}
 	
 	private enum Stage{

@@ -5,18 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.common.Loader;
-import tiffit.todolist.items.TODOBMAltar;
 import tiffit.todolist.items.TODOBuild;
 import tiffit.todolist.items.TODOCraft;
 import tiffit.todolist.items.TODOExplore;
 import tiffit.todolist.items.TODOGather;
 import tiffit.todolist.items.TODOHunt;
-import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOMine;
 import tiffit.todolist.items.TODOOther;
+import tiffit.todolist.items.TODOTask;
 
 public class ListLoader {
 
@@ -28,9 +27,6 @@ public class ListLoader {
 		TODOList.taskRegistry.putObject(TODOMine.NAME, TODOMine.class);
 		TODOList.taskRegistry.putObject(TODOExplore.NAME, TODOExplore.class);
 		TODOList.taskRegistry.putObject(TODOOther.NAME, TODOOther.class);
-		if(Loader.isModLoaded("BloodMagic")) {
-			TODOList.taskRegistry.putObject(TODOBMAltar.NAME, TODOBMAltar.class);
-		}
 		NBTTagCompound base = tagFromFile(file);
 		if(base != null){
 			NBTTagCompound tag = tagFromFile(file).getCompoundTag("custom");
@@ -58,13 +54,17 @@ public class ListLoader {
 			System.err.println("Error while reading TODOList! File = " + file.toPath());
 		}
 		if(tag != null){
-			if(tag.hasKey("enableButtonMessage")) TODOList.enableButtonMessage = tag.getBoolean("enableButtonMessage");
+			if(tag.hasKey("enableButtonMessage_" + getUsername())) TODOList.enableButtonMessage = tag.getBoolean("enableButtonMessage_" + getUsername());
 			else TODOList.enableButtonMessage = true;
 		}else{
 			TODOList.enableButtonMessage = true;
 		}
 		return tag;
 		
+	}
+	
+	public static String getUsername(){
+		return Minecraft.getSessionInfo().get("X-Minecraft-Username");
 	}
 	
 	public static List<TODOTask> getListFromStorage(File file){
@@ -87,8 +87,7 @@ public class ListLoader {
 			e.printStackTrace();
 			System.err.println("Error while reading TODOList! String = " + str);
 		}
-		
-		return null;
+		return new TODOOther();
 	}
 	
 	public static void storeToFile(File file, List<TODOTask> list){
@@ -106,12 +105,16 @@ public class ListLoader {
 			}
 			tag.setTag("custom", custom);
 		}
-		tag.setBoolean("enableButtonMessage", TODOList.enableButtonMessage);	
+		tag.setBoolean("enableButtonMessage_" + getUsername() , TODOList.enableButtonMessage);	
+		boolean savedSuccess = true;
 		try {
 			CompressedStreamTools.write(tag, file);
 		} catch (IOException e) {
+			System.out.println("Error while saving list!");
+			savedSuccess = false;
 			e.printStackTrace();
 		}
+		if(savedSuccess) System.out.println("List has been saved!");
 	}
 	
 }

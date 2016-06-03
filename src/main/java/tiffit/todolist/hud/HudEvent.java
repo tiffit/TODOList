@@ -14,8 +14,18 @@ public class HudEvent {
 	
 	@SubscribeEvent
 	public void drawHUD(RenderGameOverlayEvent.Post e){
-		task.drawHUD();
+		task.drawHUD("post");
+	}
+	
+	@SubscribeEvent
+	public void drawHUD(RenderGameOverlayEvent.Text e){
+		task.drawHUD("text");
 		TODOList.message.drawHUD();
+	}
+	
+	@SubscribeEvent
+	public void drawHUD(RenderGameOverlayEvent.Pre e){
+		task.drawHUD("pre");
 	}
 	
 }

@@ -81,6 +81,13 @@ public class TODOListGui extends GuiScreen{
 	 private void validateButtons(){
 		if(taskSelectionList.getSelected() != null) buttonList.get(2).enabled = true;
 		else buttonList.get(2).enabled = false;
+		
+		GuiButton hud_disp_button = buttonList.get(1);
+		if(taskSelectionList.getSelected() == null && TODOList.hudtask == null) hud_disp_button.enabled = false;
+		else hud_disp_button.enabled = true;
+		if(taskSelectionList.getSelected() != null) hud_disp_button.displayString = "Display on HUD";
+		else if(TODOList.hudtask != null) hud_disp_button.displayString = "Clear HUD";
+		else hud_disp_button.displayString = "Display on HUD";;
 	 }
 	 
 	 @Override
@@ -117,6 +124,7 @@ public class TODOListGui extends GuiScreen{
 		if(mouseY >= 0 && mouseX >= 0 && mouseX <= 16 && mouseX <= 16){
 			if(TODOList.tdlVer.isGreaterVersion(References.VERSION)) TODOList.tdlVer.launchDllSite();
 		}
+		
 	}
 	
 	@Override

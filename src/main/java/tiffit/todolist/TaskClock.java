@@ -27,14 +27,14 @@ public class TaskClock {
 			calculateReadable();
 			lastCheckTime = Minecraft.getSystemTime();
 			if(hours == 0 && minutes == 1 && seconds == 0){
-				TODOList.message.setMessage("Deadline", "1 minute left!");
+				TODOList.message.setMessage("Deadline", "1 minute left!", false);
 			}
 			if(hours == 0 && minutes == 5 && seconds == 0){
-				TODOList.message.setMessage("Deadline", "5 minutes left!");
+				TODOList.message.setMessage("Deadline", "5 minutes left!", false);
 			}
 			if(seconds <= 0 && minutes <= 0 && hours <= 0){
 				time_left = false;
-				TODOList.message.setMessage("Deadline", "Task has reached deadline!");
+				TODOList.message.setMessage("Deadline", "Task has reached deadline!", false);
 			}
 		}
 		
@@ -118,5 +118,13 @@ public class TaskClock {
 			}
 		}
 		return true;
+	}
+	
+	public boolean hasMoreTime(TaskClock clock){
+		if(clock.getHours() > getHours()) return true;
+		if(clock.getMinutes() > getMinutes()) return true;
+		if(clock.getSeconds() > getSeconds()) return true;
+		return false;
+		
 	}
 }

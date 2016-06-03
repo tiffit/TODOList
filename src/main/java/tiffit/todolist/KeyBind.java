@@ -29,6 +29,7 @@ public class KeyBind {
 		if(openTodoList.isPressed() && openTodoList.isKeyDown()){
 			mc.displayGuiScreen(new TODOListGui());
 			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.UI_BUTTON_CLICK, 4F, 1F);
+			TODOList.message.clearMessage();
 		}
 	}
 	

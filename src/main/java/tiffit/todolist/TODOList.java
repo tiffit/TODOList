@@ -57,6 +57,7 @@ public class TODOList {
     public void postinit(FMLPostInitializationEvent event){
 		tdlVer = VersionParser.getLatestVersion();
 		list = ListLoader.getListFromStorage(configDir);
+		reorganize();
     }
 	
 	public static void reorganize(){
@@ -100,7 +101,7 @@ public class TODOList {
 	@SubscribeEvent
 	public void hudRender(RenderGameOverlayEvent.Pre e){
 		if(enableButtonMessage){
-			message.setMessage("TODOList", "Press "+Keyboard.getKeyName(KeyBind.openTodoList.getKeyCode())+" to open");
+			message.setMessage("TODOList", "Press "+Keyboard.getKeyName(KeyBind.openTodoList.getKeyCode())+" to open", true);
 			enableButtonMessage = false;
 		}
 	}
