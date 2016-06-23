@@ -7,20 +7,21 @@ import net.minecraft.client.gui.GuiListExtended.IGuiListEntry;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
+import tiffit.todolist.TODOList;
 import tiffit.todolist.TODOListMod;
 import tiffit.todolist.items.TODOTask;
 
-public class TaskEntry implements IGuiListEntry {
+public class ListEntry implements IGuiListEntry {
 	
-	public final TODOTask item;
+	public final TODOList item;
 	boolean selected;
 	private boolean highlighted;
 	public final int index;
-	public final TaskSelectionList list;
+	public final ListSelectionList list;
 	
-	public TaskEntry(int index, TaskSelectionList list){
+	public ListEntry(int index, ListSelectionList list){
 		this.index = index;
-		this.item = TODOListMod.getCurrent().list.get(index);
+		this.item = TODOListMod.lists.get(index);
 		this.list = list;
 	}
 	
@@ -39,33 +40,17 @@ public class TaskEntry implements IGuiListEntry {
 		Gui.drawModalRectWithCustomSizedTexture(x + listWidth/4, y, 0, 193, 151, 32, 256.0F, 256.0F);
 		GlStateManager.color(1, 1, 1, 1);
 		
-		Minecraft.getMinecraft().getTextureManager().bindTexture(References.ICONS);
-        Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
-        
-        if(item.getClock() != null){
-        	Minecraft.getMinecraft().getTextureManager().bindTexture(References.MC_CLOCK);
-        	Gui.drawModalRectWithCustomSizedTexture(x + 32, y + 16, 0, 0, 16, 16, 16.0F, 16.0F);
-        }
-        if(TODOListMod.hudtask == item){
-        	Minecraft.getMinecraft().getTextureManager().bindTexture(References.WIDGETS);
-        	Gui.drawModalRectWithCustomSizedTexture(x + 16, y + 16, 0, 22, 16, 16, 256.0F, 256.0F);
-        }
-        
         if(highlighted){
+        	if(item.list.size() > 0){
+        		GlStateManager.color(0f, 0f, 0f);
+        	}
         	Minecraft.getMinecraft().getTextureManager().bindTexture(References.MC_WIDGETS);
         	Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 34, y + slotHeight - 16, 128, 0, 16, 16, 256.0F, 256.0F);
+    		GlStateManager.color(1, 1, 1, 1);
         }
         
-        String text = item.taskName() + " Task";
-        String time = item.getClock() != null ? item.getClock().toString() : "";
         FontRenderer fro = Minecraft.getMinecraft().fontRendererObj;
-        fro.drawSplitString(item.getName(), x + listWidth/4 + 2, y + 2, 150, 0xffffff);
-        
-        int width = fro.getStringWidth(text);
-        fro.drawString(time, x + listWidth/4 + 2, y + 22, item.getClock() != null ? item.getClock().getTextColor() : 0);
-        if(!highlighted) fro.drawStringWithShadow(item.taskName() + " Task", x + listWidth/4 + 147 - width, y + 22, 0xbbbbbb);
-        
-        Gui.drawRect(x + listWidth - 14, y, x + listWidth - 12, y + slotHeight + 4, item.getPriority().getColor());
+        fro.drawSplitString(item.name(), x + listWidth/4 + 2, y + 2, 150, 0xffffff);
         
         GlStateManager.color(1, 1, 1, 1);
 	}
@@ -84,7 +69,9 @@ public class TaskEntry implements IGuiListEntry {
 		}else selected = false;
 		if(selected){
 			if(relativeX > 187 && relativeY > 13 && relativeX < 187 + 16 && relativeY < 13+16){
-				list.remove(item.getListIndex(), index);
+				if(item.list.size() == 0){
+					list.remove(index);
+				}
 			}
 		}
 	}

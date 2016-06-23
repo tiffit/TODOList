@@ -27,6 +27,6 @@ public class ShutdownEvent extends Thread {
 				e.printStackTrace();
 			}
 		}
-		ListLoader.storeToFile(data, TODOList.list);
+		ListLoader.storeToFile(data);
 	}
 }

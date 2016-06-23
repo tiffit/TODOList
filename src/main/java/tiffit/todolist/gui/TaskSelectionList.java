@@ -6,6 +6,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
 import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 
 public class TaskSelectionList extends GuiListExtended {
 	
@@ -18,7 +19,7 @@ public class TaskSelectionList extends GuiListExtended {
 	
 	public void init(){
 		tasks.clear();
-		for(int i = 0; i < TODOList.list.size(); i++){
+		for(int i = 0; i < TODOListMod.getCurrent().list.size(); i++){
 			tasks.add(new TaskEntry(i, this));
 		}
 	}
@@ -33,13 +34,13 @@ public class TaskSelectionList extends GuiListExtended {
 		return tasks.size();
 	}
 	
-	protected void remove(int index){
-		if(TODOList.list.indexOf(TODOList.hudtask) == index){
-			if(index == 0) TODOList.hudtask = null;
-			else TODOList.hudtask = TODOList.list.get(index-1);
+	protected void remove(int listIndex, int index){
+		TODOList list = TODOListMod.lists.get(listIndex);
+		if(list.list.get(index) == TODOListMod.hudtask){
+			TODOListMod.hudtask = null;
 		}
-		TODOList.list.remove(index);
-		TODOList.reorganize();
+		list.list.remove(index);
+		TODOListMod.reorganize();
 		init();
 	}
 	

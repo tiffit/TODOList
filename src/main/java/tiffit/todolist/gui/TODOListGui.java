@@ -11,7 +11,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
-import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 import tiffit.todolist.TaskClock;
 import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOTask.TaskPriority;
@@ -44,9 +44,9 @@ public class TODOListGui extends GuiScreen{
 		 validateButtons();
 		 this.drawDefaultBackground();
 		 taskSelectionList.drawScreen(mouseX, mouseY, partialTicks);
-		 this.drawCenteredString(this.fontRendererObj, "TODO List", this.width / 2, 20, 16777215);
+		 this.drawCenteredString(this.fontRendererObj, "TODO List" + " (" + TODOListMod.lists.get(TODOListMod.current_list).name() + ")", this.width / 2, 20, 16777215);
 		 drawAuthor(mouseX, mouseY);
-		 if(TODOList.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
+		 if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
 		 
 		 super.drawScreen(mouseX, mouseY, partialTicks);
 	 }
@@ -83,10 +83,10 @@ public class TODOListGui extends GuiScreen{
 		else buttonList.get(2).enabled = false;
 		
 		GuiButton hud_disp_button = buttonList.get(1);
-		if(taskSelectionList.getSelected() == null && TODOList.hudtask == null) hud_disp_button.enabled = false;
+		if(taskSelectionList.getSelected() == null && TODOListMod.hudtask == null) hud_disp_button.enabled = false;
 		else hud_disp_button.enabled = true;
 		if(taskSelectionList.getSelected() != null) hud_disp_button.displayString = "Display on HUD";
-		else if(TODOList.hudtask != null) hud_disp_button.displayString = "Clear HUD";
+		else if(TODOListMod.hudtask != null) hud_disp_button.displayString = "Clear HUD";
 		else hud_disp_button.displayString = "Display on HUD";;
 	 }
 	 
@@ -98,8 +98,8 @@ public class TODOListGui extends GuiScreen{
 		}
 		if(button.id == 1){
 			TaskEntry entry = taskSelectionList.getSelected();
-			if(entry == null) TODOList.hudtask = null;
-			else TODOList.hudtask = entry.item;
+			if(entry == null) TODOListMod.hudtask = null;
+			else TODOListMod.hudtask = entry.item;
 		}
 		if(taskSelectionList.getSelected() != null){
 			TaskEntry selected = taskSelectionList.getSelected();
@@ -122,7 +122,7 @@ public class TODOListGui extends GuiScreen{
 			Desktop.getDesktop().browse(URI.create("http://minecraft.curseforge.com/members/tiffit"));
 		}
 		if(mouseY >= 0 && mouseX >= 0 && mouseX <= 16 && mouseX <= 16){
-			if(TODOList.tdlVer.isGreaterVersion(References.VERSION)) TODOList.tdlVer.launchDllSite();
+			if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) TODOListMod.tdlVer.launchDllSite();
 		}
 		
 	}
@@ -134,22 +134,22 @@ public class TODOListGui extends GuiScreen{
 	}
 	
 	public void add(TODOTask item){
-		TODOList.list.add(item);
+		TODOListMod.getCurrent().list.add(item);
 		taskSelectionList.init();
 	}
 	
 	public void setText(int index, String text){
-		TODOList.list.get(index).setName(text);
+		TODOListMod.getCurrent().list.get(index).setName(text);
 		taskSelectionList.init();
 	}
 	
 	public void setTime(int index, String time){
-		TODOList.list.get(index).setClock(TaskClock.fromString(time));
+		TODOListMod.getCurrent().list.get(index).setClock(TaskClock.fromString(time));
 		taskSelectionList.init();
 	}
 	
 	public void setPriority(int index, TaskPriority priority){
-		TODOList.list.get(index).setPriority(priority);
+		TODOListMod.getCurrent().list.get(index).setPriority(priority);
 		taskSelectionList.init();
 	}
 	

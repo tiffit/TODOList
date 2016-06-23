@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
-import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 import tiffit.todolist.items.TODOTask;
 
 public class NewTaskSelectionList extends GuiListExtended {
@@ -19,11 +19,11 @@ public class NewTaskSelectionList extends GuiListExtended {
 	
 	private void update(){
 		tasks.clear();
-		for(String str : TODOList.taskRegistry.getKeys()){
-			Class<? extends TODOTask> clazz = TODOList.taskRegistry.getObject(str);
+		for(String str : TODOListMod.taskRegistry.getKeys()){
+			Class<? extends TODOTask> clazz = TODOListMod.taskRegistry.getObject(str);
 			tasks.add(new NewTaskEntry(clazz, this));
 		}
-		for(String str : TODOList.customTaskRegistry){
+		for(String str : TODOListMod.customTaskRegistry){
 			tasks.add(new CustomNewTaskEntry(str, this));
 		}
 	}
@@ -49,7 +49,7 @@ public class NewTaskSelectionList extends GuiListExtended {
 	}
 	
 	public void remove(String name){
-		TODOList.customTaskRegistry.remove(name);
+		TODOListMod.customTaskRegistry.remove(name);
 		update();
 	}
 

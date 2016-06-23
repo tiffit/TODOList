@@ -5,7 +5,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
-import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 import tiffit.todolist.items.TODOTask;
 
 public class HUDTask {
@@ -13,8 +13,8 @@ public class HUDTask {
 	
 	
 	public void drawHUD(String type){
-		if(TODOList.hudtask == null) return;
-		TODOTask task = TODOList.hudtask;
+		if(TODOListMod.hudtask == null) return;
+		TODOTask task = TODOListMod.hudtask;
 		Minecraft mc = Minecraft.getMinecraft();
 		if(type.equals("post")){
 			mc.getTextureManager().bindTexture(References.ICONS);

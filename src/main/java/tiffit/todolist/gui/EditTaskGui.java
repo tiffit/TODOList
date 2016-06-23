@@ -9,7 +9,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiSlider;
 import net.minecraft.client.gui.GuiSlider.FormatHelper;
 import net.minecraft.client.gui.GuiTextField;
-import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 import tiffit.todolist.TaskClock;
 import tiffit.todolist.items.TODOTask;
 
@@ -86,7 +86,7 @@ public class EditTaskGui extends GuiScreen {
 			String time = timeField.getText();
 			if(TaskClock.validate(time))behind.setTime(index, time);
 			behind.setPriority(index, TODOTask.TaskPriority.values()[(int) prioritySlider.getSliderValue()]);
-			TODOList.reorganize();
+			TODOListMod.reorganize();
 			Minecraft.getMinecraft().displayGuiScreen(behind);
 		}
 	}

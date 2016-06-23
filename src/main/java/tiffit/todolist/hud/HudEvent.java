@@ -2,7 +2,7 @@ package tiffit.todolist.hud;
 
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import tiffit.todolist.TODOList;
+import tiffit.todolist.TODOListMod;
 
 public class HudEvent {
 
@@ -20,7 +20,7 @@ public class HudEvent {
 	@SubscribeEvent
 	public void drawHUD(RenderGameOverlayEvent.Text e){
 		task.drawHUD("text");
-		TODOList.message.drawHUD();
+		TODOListMod.message.drawHUD();
 	}
 	
 	@SubscribeEvent

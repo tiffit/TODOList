@@ -3,10 +3,12 @@ package tiffit.todolist.items;
 import net.minecraft.nbt.NBTTagCompound;
 import tiffit.todolist.ListLoader;
 import tiffit.todolist.TaskClock;
+import tiffit.todolist.Util;
 
 public abstract class TODOTask {
 	
 	private String name = "";
+	private int listIndex;
 	private TaskClock clock;
 	private TaskPriority priority;
 	
@@ -47,11 +49,16 @@ public abstract class TODOTask {
 		return name;
 	}
 	
+	public int getListIndex(){
+		return listIndex;
+	}
+	
 	public NBTTagCompound getNBT(){
 		NBTTagCompound tag = new NBTTagCompound();
 		tag.setString("type", taskName());
 		tag.setString("name", getName());
 		tag.setInteger("priority", priority.ordinal());
+		tag.setInteger("listIndex", listIndex);
 		if(clock != null && clock.enabled()) tag.setTag("clock", clock.toNBT());
 		return tag;
 	}
@@ -62,10 +69,10 @@ public abstract class TODOTask {
 			item.setName(nbt.getString("name"));
 			return item;
 		}
-		TODOTask item = ListLoader.getFromString(nbt.getString("type"));
+		TODOTask item = Util.getFromString(nbt.getString("type"));
 		item.setName(nbt.getString("name"));
-		if(nbt.hasKey("clock")) item.setClock(TaskClock.fromNBT(nbt.getCompoundTag("clock")));
-		if(nbt.hasKey("priority")) item.setPriority(TaskPriority.values()[nbt.getInteger("priority")]);
+		item.setClock(TaskClock.fromNBT(nbt.getCompoundTag("clock")));
+		if(nbt.hasKey("priority"))item.setPriority(TaskPriority.values()[nbt.getInteger("priority")]);
 		else item.setPriority(TaskPriority.Medium);
 		return item;
 	}

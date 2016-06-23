@@ -20,19 +20,19 @@ import tiffit.todolist.items.TODOTask;
 public class ListLoader {
 
 	public static void register(File file){
-		TODOList.taskRegistry.putObject(TODOCraft.NAME, TODOCraft.class);
-		TODOList.taskRegistry.putObject(TODOBuild.NAME, TODOBuild.class);
-		TODOList.taskRegistry.putObject(TODOGather.NAME, TODOGather.class);
-		TODOList.taskRegistry.putObject(TODOHunt.NAME, TODOHunt.class);
-		TODOList.taskRegistry.putObject(TODOMine.NAME, TODOMine.class);
-		TODOList.taskRegistry.putObject(TODOExplore.NAME, TODOExplore.class);
-		TODOList.taskRegistry.putObject(TODOOther.NAME, TODOOther.class);
+		TODOListMod.taskRegistry.putObject(TODOCraft.NAME, TODOCraft.class);
+		TODOListMod.taskRegistry.putObject(TODOBuild.NAME, TODOBuild.class);
+		TODOListMod.taskRegistry.putObject(TODOGather.NAME, TODOGather.class);
+		TODOListMod.taskRegistry.putObject(TODOHunt.NAME, TODOHunt.class);
+		TODOListMod.taskRegistry.putObject(TODOMine.NAME, TODOMine.class);
+		TODOListMod.taskRegistry.putObject(TODOExplore.NAME, TODOExplore.class);
+		TODOListMod.taskRegistry.putObject(TODOOther.NAME, TODOOther.class);
 		NBTTagCompound base = tagFromFile(file);
 		if(base != null){
-			NBTTagCompound tag = tagFromFile(file).getCompoundTag("custom");
+			NBTTagCompound tag = base.getCompoundTag("custom");
 			if(tag.hasKey("i")){
 				for(int i = 0; i < tag.getInteger("i"); i++){
-					TODOList.customTaskRegistry.add(tag.getString("name_" + i));
+					TODOListMod.customTaskRegistry.add(tag.getString("name_" + i));
 				}
 			}
 		}
@@ -53,59 +53,38 @@ public class ListLoader {
 			e.printStackTrace();
 			System.err.println("Error while reading TODOList! File = " + file.toPath());
 		}
-		if(tag != null){
-			if(tag.hasKey("enableButtonMessage_" + getUsername())) TODOList.enableButtonMessage = tag.getBoolean("enableButtonMessage_" + getUsername());
-			else TODOList.enableButtonMessage = true;
-		}else{
-			TODOList.enableButtonMessage = true;
-		}
 		return tag;
 		
 	}
 	
-	public static String getUsername(){
-		return Minecraft.getSessionInfo().get("X-Minecraft-Username");
-	}
-	
-	public static List<TODOTask> getListFromStorage(File file){
+	public static List<TODOList> getListFromStorage(File file){
 		System.out.println("Getting TODO list from storage...");
-		ArrayList<TODOTask> list = new ArrayList<TODOTask>();
+		List<TODOList> lists = new ArrayList<TODOList>();
 		NBTTagCompound tag = tagFromFile(file);
 		if(tag == null){
-			return list;
+			return lists;
 		}
 		for(int i = 0; i < tag.getInteger("size"); i++){
-			list.add(TODOTask.getFromNBT(tag.getCompoundTag("" + i)));
+			lists.add(TODOList.getFromNBT(tag.getCompoundTag("" + i)));
 		}
-		return list;
+		return lists;
 	}
 	
-	public static TODOTask getFromString(String str){
-		try {
-			return TODOList.taskRegistry.getObject(str).newInstance();
-		} catch (Exception e){
-			e.printStackTrace();
-			System.err.println("Error while reading TODOList! String = " + str);
-		}
-		return new TODOOther();
-	}
-	
-	public static void storeToFile(File file, List<TODOTask> list){
+	public static void storeToFile(File file){
 		System.out.println("Saving TODO list to storage...");
 		NBTTagCompound tag = new NBTTagCompound();
-		tag.setInteger("size", list.size());
-		for(int i = 0; i < list.size(); i++){
-			tag.setTag("" + i, list.get(i).getNBT());
+		tag.setInteger("size", TODOListMod.lists.size());
+		for(int i = 0; i < TODOListMod.lists.size(); i++){
+			tag.setTag("" + i, TODOListMod.lists.get(i).toNBT());
 		}
-		if(TODOList.customTaskRegistry.size() > 0){
+		if(TODOListMod.customTaskRegistry.size() > 0){
 			NBTTagCompound custom = new NBTTagCompound();
-			custom.setInteger("i", TODOList.customTaskRegistry.size());
-			for(int i = 0; i < TODOList.customTaskRegistry.size(); i++){
-				custom.setString("name_" + i, TODOList.customTaskRegistry.get(i));
+			custom.setInteger("i", TODOListMod.customTaskRegistry.size());
+			for(int i = 0; i < TODOListMod.customTaskRegistry.size(); i++){
+				custom.setString("name_" + i, TODOListMod.customTaskRegistry.get(i));
 			}
 			tag.setTag("custom", custom);
 		}
-		tag.setBoolean("enableButtonMessage_" + getUsername() , TODOList.enableButtonMessage);	
 		boolean savedSuccess = true;
 		try {
 			CompressedStreamTools.write(tag, file);
