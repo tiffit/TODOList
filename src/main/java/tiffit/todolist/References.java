@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 public final class References {
 
 	public static final String MODID = "TODOList";
-    public static final String VERSION = "1.1.0";
+    public static final String VERSION = "1.1.2";
     
     public static final ResourceLocation ICONS = new ResourceLocation(References.MODID + ":textures/gui/icons.png");
     public static final ResourceLocation TODOLIST = new ResourceLocation(References.MODID + ":textures/gui/todolist.png");

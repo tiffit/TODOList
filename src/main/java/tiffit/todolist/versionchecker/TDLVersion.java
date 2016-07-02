@@ -44,12 +44,16 @@ public class TDLVersion {
 	
 	public boolean isGreaterVersion(String currentVer){
 		String[] current = currentVer.split("\\.");
+		
 		int major = Integer.parseInt(current[0]);
 		int middle = Integer.parseInt(current[1]);
 		int minor = Integer.parseInt(current[2]);
+		
 		if(getMajor() > major) return true;
+		else if(getMajor() < major)return false;
 		if(getMiddle() > middle) return true;
+		else if(getMiddle() < middle) return false;
 		if(getMinor() > minor) return true;
-		return false;
+		else return false;
 	}
 }

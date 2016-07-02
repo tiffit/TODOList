@@ -44,8 +44,10 @@ public class ListSelectionGui extends GuiScreen {
 			Minecraft.getMinecraft().displayGuiScreen(new AddListGui(this));
 		}
 		if(button.id == 1){
-			TODOListMod.current_list = taskSelectionList.getSelected().index;
-			Minecraft.getMinecraft().displayGuiScreen(new TODOListGui());
+			if(taskSelectionList.getSelected() != null){
+				TODOListMod.current_list = taskSelectionList.getSelected().index;
+				Minecraft.getMinecraft().displayGuiScreen(new TODOListGui());
+			}
 		}
 	}
 	 

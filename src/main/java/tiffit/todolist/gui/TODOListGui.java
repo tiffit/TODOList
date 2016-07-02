@@ -13,6 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import tiffit.todolist.References;
 import tiffit.todolist.TODOListMod;
 import tiffit.todolist.TaskClock;
+import tiffit.todolist.config.GuiConfiguration;
 import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOTask.TaskPriority;
 
@@ -46,12 +47,13 @@ public class TODOListGui extends GuiScreen{
 		 taskSelectionList.drawScreen(mouseX, mouseY, partialTicks);
 		 this.drawCenteredString(this.fontRendererObj, "TODO List" + " (" + TODOListMod.lists.get(TODOListMod.current_list).name() + ")", this.width / 2, 20, 16777215);
 		 drawAuthor(mouseX, mouseY);
-		 if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
+		 if(TODOListMod.config.shouldVersionCheck()) if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
 		 
 		 super.drawScreen(mouseX, mouseY, partialTicks);
 	 }
 	 
 	 private void drawUpdate(int x, int y){
+		 if(!TODOListMod.config.shouldVersionCheck()) return;
 		 drawString(fontRendererObj, "An update is available!", updateSlide, 4, 0xffffff);
 		 Minecraft.getMinecraft().getTextureManager().bindTexture(mc_widgets);
 		 drawScaledCustomSizeModalRect(0, 0, 238, 22, 8, 8, 16, 16, 256f, 256f);
@@ -121,8 +123,10 @@ public class TODOListGui extends GuiScreen{
 		if(isInside(mouseX, mouseY)){
 			Desktop.getDesktop().browse(URI.create("http://minecraft.curseforge.com/members/tiffit"));
 		}
-		if(mouseY >= 0 && mouseX >= 0 && mouseX <= 16 && mouseX <= 16){
-			if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) TODOListMod.tdlVer.launchDllSite();
+		if(TODOListMod.config.shouldVersionCheck()){
+			if(mouseY >= 0 && mouseX >= 0 && mouseX <= 16 && mouseX <= 16){
+				if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) TODOListMod.tdlVer.launchDllSite();
+			}
 		}
 		
 	}

@@ -8,6 +8,7 @@ import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+import tiffit.todolist.config.Configuration;
 import tiffit.todolist.items.TODOBuild;
 import tiffit.todolist.items.TODOCraft;
 import tiffit.todolist.items.TODOExplore;
@@ -29,12 +30,20 @@ public class ListLoader {
 		TODOListMod.taskRegistry.putObject(TODOOther.NAME, TODOOther.class);
 		NBTTagCompound base = tagFromFile(file);
 		if(base != null){
-			NBTTagCompound tag = base.getCompoundTag("custom");
-			if(tag.hasKey("i")){
-				for(int i = 0; i < tag.getInteger("i"); i++){
-					TODOListMod.customTaskRegistry.add(tag.getString("name_" + i));
+			{ //Register Customs
+				NBTTagCompound tag = base.getCompoundTag("custom");
+				if(tag.hasKey("i")){
+					for(int i = 0; i < tag.getInteger("i"); i++){
+						TODOListMod.customTaskRegistry.add(tag.getString("name_" + i));
+					}
 				}
 			}
+			if(base.hasKey("configuration")){ //Initialize Configuration
+				NBTTagCompound tag = base.getCompoundTag("configuration");
+				TODOListMod.config = Configuration.getFromNBT(tag);
+			}
+		}else{
+			TODOListMod.config = new Configuration();
 		}
 	}
 	
@@ -85,6 +94,7 @@ public class ListLoader {
 			}
 			tag.setTag("custom", custom);
 		}
+		tag.setTag("configuration", TODOListMod.config.getNBT());
 		boolean savedSuccess = true;
 		try {
 			CompressedStreamTools.write(tag, file);

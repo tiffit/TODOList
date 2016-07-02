@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import tiffit.todolist.config.Configuration;
 import tiffit.todolist.gui.ListSelectionGui;
 import tiffit.todolist.gui.TODOListGui;
 import tiffit.todolist.hud.HudEvent;
@@ -42,6 +43,7 @@ public class TODOListMod {
 	public static RegistryNamespaced<String, Class<? extends TODOTask>> taskRegistry = new RegistryNamespaced<String, Class<? extends TODOTask>>();
 	public static List<String> customTaskRegistry = new ArrayList<String>();
 	public static HudMessage message;
+	public static Configuration config;
 	
 	@EventHandler
     public void preinit(FMLPreInitializationEvent event){
@@ -61,7 +63,7 @@ public class TODOListMod {
 	
 	@EventHandler
     public void postinit(FMLPostInitializationEvent event){
-		tdlVer = VersionParser.getLatestVersion();
+		if(config.shouldVersionCheck()) tdlVer = VersionParser.getLatestVersion();
 		lists = ListLoader.getListFromStorage(configDir);
 		reorganize();
     }
@@ -110,7 +112,7 @@ public class TODOListMod {
 	
 	@SubscribeEvent
 	public void event(GuiScreenEvent.DrawScreenEvent.Post e){
-		if(e.getGui() instanceof GuiInventory){
+		if(e.getGui() instanceof GuiInventory && config.shouldDrawList()){
 			Minecraft.getMinecraft().getTextureManager().bindTexture(References.TODOLIST);
 			GlStateManager.color(1f, 1f, 1f);
 			int width = e.getGui().width;
@@ -124,14 +126,16 @@ public class TODOListMod {
 	
 	@SubscribeEvent
 	public void onGuiMouseEvent(GuiScreenEvent.MouseInputEvent.Pre e) {
-		GuiScreen gui = e.getGui();
-		int width = gui.width;
-		int height = gui.height;
-		int x = Mouse.getEventX()*width/gui.mc.displayWidth;
-		int y = height - Mouse.getEventY()*height/gui.mc.displayHeight - 1;
-		if(Mouse.isButtonDown(0)){
-			if(x > width/2+65 && x < width/2+65 + 16 && y > height/2 - 75 && y < height/2 - 75 + 16){
-				Minecraft.getMinecraft().displayGuiScreen(new ListSelectionGui());
+		if(e.getGui() instanceof GuiInventory && config.shouldDrawList()){
+			GuiScreen gui = e.getGui();
+			int width = gui.width;
+			int height = gui.height;
+			int x = Mouse.getEventX()*width/gui.mc.displayWidth;
+			int y = height - Mouse.getEventY()*height/gui.mc.displayHeight - 1;
+			if(Mouse.isButtonDown(0)){
+				if(x > width/2+65 && x < width/2+65 + 16 && y > height/2 - 75 && y < height/2 - 75 + 16){
+					Minecraft.getMinecraft().displayGuiScreen(new ListSelectionGui());
+				}
 			}
 		}
 	}
