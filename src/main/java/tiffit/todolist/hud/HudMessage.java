@@ -79,7 +79,7 @@ public class HudMessage {
 		if(persist) stage = Stage.Stay;
 		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
 		try{
-			Minecraft.getMinecraft().thePlayer.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 4F, 1F);
+			Minecraft.getMinecraft().player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 4F, 1F);
 		}catch(NullPointerException e){
 			System.err.println("Error while sending message! message = " + message);
 		}catch(Exception e){

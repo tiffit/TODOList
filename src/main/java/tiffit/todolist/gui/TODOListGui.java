@@ -16,6 +16,7 @@ import tiffit.todolist.TaskClock;
 import tiffit.todolist.config.GuiConfiguration;
 import tiffit.todolist.items.TODOTask;
 import tiffit.todolist.items.TODOTask.TaskPriority;
+import tiffit.todolist.utils.GuiUtils;
 
 public class TODOListGui extends GuiScreen{
 
@@ -43,11 +44,15 @@ public class TODOListGui extends GuiScreen{
 	 
 	 public void drawScreen(int mouseX, int mouseY, float partialTicks){
 		 validateButtons();
-		 this.drawDefaultBackground();
+		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		 taskSelectionList.drawScreen(mouseX, mouseY, partialTicks);
 		 this.drawCenteredString(this.fontRendererObj, "TODO List" + " (" + TODOListMod.lists.get(TODOListMod.current_list).name() + ")", this.width / 2, 20, 16777215);
 		 drawAuthor(mouseX, mouseY);
-		 if(TODOListMod.config.shouldVersionCheck()) if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
+		 if(TODOListMod.config.shouldVersionCheck()){
+			 if(TODOListMod.tdlVer != null){
+				 if(TODOListMod.tdlVer.isGreaterVersion(References.VERSION)) drawUpdate(mouseX, mouseY);
+			 }
+		 }
 		 
 		 super.drawScreen(mouseX, mouseY, partialTicks);
 	 }

@@ -8,6 +8,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import tiffit.todolist.TODOList;
 import tiffit.todolist.TODOListMod;
+import tiffit.todolist.utils.GuiUtils;
 
 public class AddListGui extends GuiScreen {
 
@@ -20,7 +21,7 @@ public class AddListGui extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		drawBackground(0);
+		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		fontRendererObj.drawStringWithShadow("List Name:", this.width / 2 - 100, height/3 - fontRendererObj.FONT_HEIGHT, 0xffffff);
 		nameField.drawTextBox();

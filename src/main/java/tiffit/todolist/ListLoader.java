@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import tiffit.todolist.config.Configuration;
@@ -16,7 +15,6 @@ import tiffit.todolist.items.TODOGather;
 import tiffit.todolist.items.TODOHunt;
 import tiffit.todolist.items.TODOMine;
 import tiffit.todolist.items.TODOOther;
-import tiffit.todolist.items.TODOTask;
 
 public class ListLoader {
 
