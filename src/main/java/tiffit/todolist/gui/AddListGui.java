@@ -23,14 +23,14 @@ public class AddListGui extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		fontRendererObj.drawStringWithShadow("List Name:", this.width / 2 - 100, height/3 - fontRendererObj.FONT_HEIGHT, 0xffffff);
+		fontRenderer.drawStringWithShadow("List Name:", this.width / 2 - 100, height/3 - fontRenderer.FONT_HEIGHT, 0xffffff);
 		nameField.drawTextBox();
 	}
 	
 	@Override
 	public void initGui() {
 		super.initGui();
-		nameField = new GuiTextField(0, fontRendererObj, this.width / 2 - 100, height/3, 200, 20);
+		nameField = new GuiTextField(0, fontRenderer, this.width / 2 - 100, height/3, 200, 20);
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, (this.height / 3) * 2, 200, 20, "Done"));
 	}
 	

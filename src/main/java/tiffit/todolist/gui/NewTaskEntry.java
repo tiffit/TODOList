@@ -27,11 +27,11 @@ public class NewTaskEntry implements IGuiListEntry {
 	}
 	
 	@Override
-	public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
+	public void updatePosition(int p_178011_1_, int p_178011_2_, int p_178011_3_, float partialTicks) {
 	}
 
 	@Override
-	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
+	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 		highlighted = isSelected;
 		if(selected){
 	        GlStateManager.color(1f, 1f, .6f, 1f);
@@ -42,7 +42,7 @@ public class NewTaskEntry implements IGuiListEntry {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(References.ICONS);
         Gui.drawModalRectWithCustomSizedTexture(x + 16, y, item.getX()*32, item.getY()*32, 32, 32, 256.0F, 256.0F);
         
-		Minecraft.getMinecraft().fontRendererObj.drawStringWithShadow(item.getName() + " Task", x + listWidth/4 + 2, y + 2, 0xffffff);
+		Minecraft.getMinecraft().fontRenderer.drawStringWithShadow(item.getName() + " Task", x + listWidth/4 + 2, y + 2, 0xffffff);
 	}
 
 	@Override

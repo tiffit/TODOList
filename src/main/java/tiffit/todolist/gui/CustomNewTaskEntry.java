@@ -16,8 +16,8 @@ public class CustomNewTaskEntry extends NewTaskEntry {
 	}
 	
 	@Override
-	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
-		super.drawEntry(slotIndex, x, y, listWidth, slotHeight, mouseX, mouseY, isSelected);
+	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
+		super.drawEntry(slotIndex, x, y, listWidth, slotHeight, mouseX, mouseY, isSelected, partialTicks);
 		if(highlighted){
         	Minecraft.getMinecraft().getTextureManager().bindTexture(References.MC_WIDGETS);
         	Gui.drawModalRectWithCustomSizedTexture(x + listWidth - 34, y + slotHeight - 16, 128, 0, 16, 16, 256.0F, 256.0F);

@@ -1,6 +1,6 @@
 [
 {
-"modid": "TODOList",
+"modid": "todolist",
 "name": "TODO List",
 "description": "This mod allows you to create a TODO list that can store all of the tasks that you wish to do.",
 "version": "${version}",

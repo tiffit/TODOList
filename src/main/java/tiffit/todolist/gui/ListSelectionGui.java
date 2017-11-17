@@ -34,7 +34,7 @@ public class ListSelectionGui extends GuiScreen {
 	 public void drawScreen(int mouseX, int mouseY, float partialTicks){
 		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		 taskSelectionList.drawScreen(mouseX, mouseY, partialTicks);
-		 this.drawCenteredString(this.fontRendererObj, "List Selection", this.width / 2, 20, 16777215);
+		 this.drawCenteredString(this.fontRenderer, "List Selection", this.width / 2, 20, 16777215);
 		 super.drawScreen(mouseX, mouseY, partialTicks);
 	 }
 	 

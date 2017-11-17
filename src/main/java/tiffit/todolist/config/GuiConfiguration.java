@@ -20,7 +20,7 @@ public class GuiConfiguration extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		this.drawCenteredString(fontRendererObj, "Configuration", this.width/2, 5, 0xffffff);
+		this.drawCenteredString(fontRenderer, "Configuration", this.width/2, 5, 0xffffff);
 	}
 	
 	@Override

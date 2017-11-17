@@ -18,8 +18,8 @@ public class HUDTask {
 		Minecraft mc = Minecraft.getMinecraft();
 		if(type.equals("post")){
 			mc.getTextureManager().bindTexture(References.ICONS);
-			int nameW = mc.fontRendererObj.getStringWidth(task.getName()) + 28;
-			int taskW = mc.fontRendererObj.getStringWidth(task.taskName() + " Task") + 28;
+			int nameW = mc.fontRenderer.getStringWidth(task.getName()) + 28;
+			int taskW = mc.fontRenderer.getStringWidth(task.taskName() + " Task") + 28;
 			Gui.drawRect(0, 0, nameW > taskW ? nameW : taskW, 40, 0x11ffffff);
 			GlStateManager.enableBlend();
 			Gui.drawModalRectWithCustomSizedTexture(5, 5, task.getX()*32, task.getY()*32, 32, 32, 256f, 256f);
@@ -29,13 +29,13 @@ public class HUDTask {
 			
 		}
 		if(type.equals("text")){
-			mc.fontRendererObj.drawStringWithShadow(task.getName(), 24, 10, 0xffffff);
+			mc.fontRenderer.drawStringWithShadow(task.getName(), 24, 10, 0xffffff);
 			int taskY = 20;
 			if(task.getClock() != null){
-				mc.fontRendererObj.drawStringWithShadow(task.getClock().toString(), 24, 20, task.getClock().getTextColor());
+				mc.fontRenderer.drawStringWithShadow(task.getClock().toString(), 24, 20, task.getClock().getTextColor());
 				taskY+=10;
 			}
-			mc.fontRendererObj.drawStringWithShadow(task.taskName() + " Task", 24, taskY, 0xbbbbbb);
+			mc.fontRenderer.drawStringWithShadow(task.taskName() + " Task", 24, taskY, 0xbbbbbb);
 		}
 		
 	}

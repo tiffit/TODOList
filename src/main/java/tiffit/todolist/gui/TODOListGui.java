@@ -46,7 +46,7 @@ public class TODOListGui extends GuiScreen{
 		 validateButtons();
 		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		 taskSelectionList.drawScreen(mouseX, mouseY, partialTicks);
-		 this.drawCenteredString(this.fontRendererObj, "TODO List" + " (" + TODOListMod.lists.get(TODOListMod.current_list).name() + ")", this.width / 2, 20, 16777215);
+		 this.drawCenteredString(this.fontRenderer, "TODO List" + " (" + TODOListMod.lists.get(TODOListMod.current_list).name() + ")", this.width / 2, 20, 16777215);
 		 drawAuthor(mouseX, mouseY);
 		 if(TODOListMod.config.shouldVersionCheck()){
 			 if(TODOListMod.tdlVer != null){
@@ -59,7 +59,7 @@ public class TODOListGui extends GuiScreen{
 	 
 	 private void drawUpdate(int x, int y){
 		 if(!TODOListMod.config.shouldVersionCheck()) return;
-		 drawString(fontRendererObj, "An update is available!", updateSlide, 4, 0xffffff);
+		 drawString(fontRenderer, "An update is available!", updateSlide, 4, 0xffffff);
 		 Minecraft.getMinecraft().getTextureManager().bindTexture(mc_widgets);
 		 drawScaledCustomSizeModalRect(0, 0, 238, 22, 8, 8, 16, 16, 256f, 256f);
 		 if(updateSlideHold <= 0){
@@ -76,12 +76,12 @@ public class TODOListGui extends GuiScreen{
 		 int color = 0xffffff;
 		 String drawString = "by tiffit";
 		 if(isInside(x, y)) color = 0xFFEA00;
-		 this.drawString(fontRendererObj, drawString, this.width - 43, this.height - 15, color);
+		 this.drawString(fontRenderer, drawString, this.width - 43, this.height - 15, color);
 	 }
 	 
 	 private boolean isInside(int x, int y){
 		 if(!Desktop.isDesktopSupported()) return false;
-		 if(x > this.width - 43 && y > this.height - 15 && x < this.width - 43 + fontRendererObj.getStringWidth("by tiffit") && y < this.height - 15 + fontRendererObj.FONT_HEIGHT) return true;
+		 if(x > this.width - 43 && y > this.height - 15 && x < this.width - 43 + fontRenderer.getStringWidth("by tiffit") && y < this.height - 15 + fontRenderer.FONT_HEIGHT) return true;
 		 return false;
 	 }
 	 

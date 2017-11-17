@@ -37,23 +37,23 @@ public class EditTaskGui extends GuiScreen {
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		GuiUtils.drawBackground(TODOListMod.config.getTheme(), width, height);
 		super.drawScreen(mouseX, mouseY, partialTicks);
-		fontRendererObj.drawStringWithShadow("Task Name:", this.width / 2 - 100, height/3 - fontRendererObj.FONT_HEIGHT, 0xffffff);
-		fontRendererObj.drawStringWithShadow("Deadline (Leave blank if none):", this.width / 2 - 100, height/2 - fontRendererObj.FONT_HEIGHT, 0xffffff);
-		fontRendererObj.drawStringWithShadow("HH:MM:SS", this.width / 2 - 100, height/2 - fontRendererObj.FONT_HEIGHT + 32, 0xbbbbbb);
+		fontRenderer.drawStringWithShadow("Task Name:", this.width / 2 - 100, height/3 - fontRenderer.FONT_HEIGHT, 0xffffff);
+		fontRenderer.drawStringWithShadow("Deadline (Leave blank if none):", this.width / 2 - 100, height/2 - fontRenderer.FONT_HEIGHT, 0xffffff);
+		fontRenderer.drawStringWithShadow("HH:MM:SS", this.width / 2 - 100, height/2 - fontRenderer.FONT_HEIGHT + 32, 0xbbbbbb);
 		if(!TaskClock.validate(timeField.getText())){
-			fontRendererObj.drawStringWithShadow("Invalid Format!", this.width / 2, height/2 - fontRendererObj.FONT_HEIGHT + 32, 0xff0000);
+			fontRenderer.drawStringWithShadow("Invalid Format!", this.width / 2, height/2 - fontRenderer.FONT_HEIGHT + 32, 0xff0000);
 		}
 		nameField.drawTextBox();
 		timeField.drawTextBox();
-		prioritySlider.drawButton(Minecraft.getMinecraft(), mouseX, mouseY);
+		prioritySlider.drawButton(Minecraft.getMinecraft(), mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
 	public void initGui() {
 		super.initGui();
-		nameField = new GuiTextField(0, fontRendererObj, this.width / 2 - 100, height/3, 200, 20);
+		nameField = new GuiTextField(0, fontRenderer, this.width / 2 - 100, height/3, 200, 20);
 		nameField.setText(name);
-		timeField = new GuiTextField(1, fontRendererObj, this.width / 2 - 100, height/2, 200, 20);
+		timeField = new GuiTextField(1, fontRenderer, this.width / 2 - 100, height/2, 200, 20);
 		timeField.setText(time);
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, this.height - 40, 200, 20, "Done"));
 		prioritySlider = new GuiSlider(new GuiResponder(){

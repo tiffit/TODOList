@@ -26,12 +26,12 @@ public class ListEntry implements IGuiListEntry {
 	}
 	
 	@Override
-	public void setSelected(int p_178011_1_, int p_178011_2_, int p_178011_3_) {
+	public void updatePosition(int p_178011_1_, int p_178011_2_, int p_178011_3_, float partialTicks) {
 		
 	}
-
+	
 	@Override
-	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected) {
+	public void drawEntry(int slotIndex, int x, int y, int listWidth, int slotHeight, int mouseX, int mouseY, boolean isSelected, float partialTicks) {
 		highlighted = isSelected;
 		if(selected){
 	        GlStateManager.color(1f, 1f, .6f, 1f);
@@ -49,7 +49,7 @@ public class ListEntry implements IGuiListEntry {
     		GlStateManager.color(1, 1, 1, 1);
         }
         
-        FontRenderer fro = Minecraft.getMinecraft().fontRendererObj;
+        FontRenderer fro = Minecraft.getMinecraft().fontRenderer;
         fro.drawSplitString(item.name(), x + listWidth/4 + 2, y + 2, 150, 0xffffff);
         
         GlStateManager.color(1, 1, 1, 1);
@@ -75,5 +75,6 @@ public class ListEntry implements IGuiListEntry {
 			}
 		}
 	}
+
 
 }

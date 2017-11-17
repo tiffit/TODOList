@@ -5,9 +5,9 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiListExtended;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import tiffit.todolist.TODOListMod;
 import tiffit.todolist.items.TODOTask;
@@ -35,7 +35,7 @@ public class NewTaskSelectionList extends GuiListExtended {
 	@Override
     protected void overlayBackground(int startY, int endY, int startAlpha, int endAlpha){
         Tessellator tessellator = Tessellator.getInstance();
-        VertexBuffer vertexbuffer = tessellator.getBuffer();
+        BufferBuilder vertexbuffer = tessellator.getBuffer();
         this.mc.getTextureManager().bindTexture(TODOListMod.config.getTheme().RESOURCE);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         float f = 32.0F;
@@ -49,7 +49,7 @@ public class NewTaskSelectionList extends GuiListExtended {
     
 	@Override
 	protected void drawContainerBackground(Tessellator tessellator) {
-		VertexBuffer buffer = tessellator.getBuffer();
+		BufferBuilder buffer = tessellator.getBuffer();
 		this.mc.getTextureManager().bindTexture(TODOListMod.config.getTheme().RESOURCE);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 		float f = 32.0F;

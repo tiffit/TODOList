@@ -30,12 +30,12 @@ public class HudMessage {
 		Minecraft mc = Minecraft.getMinecraft();
 		GlStateManager.enableBlend();
 		mc.renderEngine.bindTexture(widgets);
-		for(int i = 0; i <= mc.fontRendererObj.getStringWidth(message) + x; i++){
+		for(int i = 0; i <= mc.fontRenderer.getStringWidth(message) + x; i++){
 			Gui.drawScaledCustomSizeModalRect(i, 48, 0, 0, 1, 22, 1, 22, 256.0F, 256.0F);
 		}
-		Gui.drawScaledCustomSizeModalRect(mc.fontRendererObj.getStringWidth(message) + x + 1, 48, 1, 0, 2, 22, 2, 22, 256.0F, 256.0F);
-			mc.fontRendererObj.drawStringWithShadow(title, x, 50, 0xffffff);
-			mc.fontRendererObj.drawStringWithShadow(message, x, 60, 0xbfbfbf);
+		Gui.drawScaledCustomSizeModalRect(mc.fontRenderer.getStringWidth(message) + x + 1, 48, 1, 0, 2, 22, 2, 22, 256.0F, 256.0F);
+			mc.fontRenderer.drawStringWithShadow(title, x, 50, 0xffffff);
+			mc.fontRenderer.drawStringWithShadow(message, x, 60, 0xbfbfbf);
 			if(update_delay <= 0){
 				update();
 				update_delay = update_delay_max;
@@ -50,7 +50,7 @@ public class HudMessage {
 			return;
 		}
 		if(stage == Stage.Open){
-			x++;
+			x+=10;
 			if(x >= 0){
 				x = 0;
 				stage = Stage.Stay;
@@ -77,7 +77,7 @@ public class HudMessage {
 		persist = waitUntilOpen;
 		stage = Stage.Open;
 		if(persist) stage = Stage.Stay;
-		x = original_x = -Minecraft.getMinecraft().fontRendererObj.getStringWidth(message);
+		x = original_x = -Minecraft.getMinecraft().fontRenderer.getStringWidth(message);
 		try{
 			Minecraft.getMinecraft().player.playSound(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 4F, 1F);
 		}catch(NullPointerException e){
